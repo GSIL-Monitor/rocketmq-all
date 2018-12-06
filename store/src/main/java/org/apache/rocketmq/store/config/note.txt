@@ -1,0 +1,11 @@
+在$HOME\store\config 目录下面存储各类 config 文件，包括：consumerOffset.json、 delayOffset.json、 subscriptionGroup.json、topics.json 四类 config 文件。
+
+topics.json 文件由 TopicConfigManager 类解析并存储, 存储每个 topic的读写队列数、权限、是否顺序等信息。
+
+consumerOffset.json 文件由 ConsumerOffsetManager 类解析并存储；
+存储每个消费者 Consumer 在每个 topic 上对于该 topic 的 consumequeue 队列的消费进度
+
+delayOffset.json 文件由 ScheduleMessageService 类解析并存储
+存储对于延迟主题SCHEDULE_TOPIC_XXXX 的每个 consumequeue 队列的消费进度；
+
+subscriptionGroup.json 文件由 SubscriptionGroupManager 类解析并存储；存储每个消费者 Consumer 的订阅信息。

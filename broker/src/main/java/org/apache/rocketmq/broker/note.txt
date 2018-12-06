@@ -1,0 +1,62 @@
+
+topics.json 文件由 TopicConfigManager 类解析并存储； 存储每个 topic的读写队列数、权限、是否顺序等信息
+---------------------
+//加载topics.json
+{
+        "dataVersion":{
+        "counter":2,
+        "timestatmp":1393729865073
+        },
+        "topicConfigTable":{
+        //根据 consumer 的 group 生成的重试 topic
+        "%RETRY% group_name":{
+        "perm":6,
+        "readQueueNums":1,
+        "topicFilterType":"SINGLE_TAG",
+        "topicName":"%RETRY% group_name",
+        "writeQueueNums":1
+        },
+        "TopicTest":{
+        "perm":6, // 100 读权限 , 10 写权限 6 是 110 读写权限
+        "readQueueNums":8,
+        "topicFilterType":"SINGLE_TAG",
+        "topicName":"TopicTest",
+        "writeQueueNums":8
+        }
+    }
+}
+---------------------
+//加载消费进度偏移量consumerOffset.json
+{
+    "offsetTable":{
+        "%RETRY% group_name@ group_name":{
+            0:0 //重试队列消费进度为零
+    },
+    "TopicTest@ group_name":{
+        0:23,1:23,2:22,3:22,4:21,5:18,6:18,7:18
+        //分组名 group_name 消费 topic 为 TopicTest 的进度为：
+        // 队列 queue=0 消费进度 23
+        // 队列 queue=2 消费进度为 22 等等…
+    }
+}
+}
+---------------------
+//加载消费者订阅关系
+{
+    "dataVersion":{
+        "counter":1,
+        "timestatmp":1393641744664
+    },
+    " group_name":{
+            "brokerId":0, //0 代表这台 broker 机器为 master，若要设为 slave 值大于 0
+            "consumeBroadcastEnable":true,
+            "consumeEnable":true,
+            "consumeFromMinEnable":true,
+            "groupName":" group_name",
+            "retryMaxTimes":5,
+            "retryQueueNums":1,
+            "whichBrokerWhenConsumeSlowly":1
+        }
+    }
+}
+---------------------
